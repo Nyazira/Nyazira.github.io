@@ -1,0 +1,10 @@
+.panel-cover {
+	position: fixed;
+	z-index: 900;
+	display: block;
+	width: 100%;
+	height: 100%;
+	max-width: none;
+	background: url(../images/background-cover.jpg) top left no-repeat #666666;
+	background-size: cover;
+}
