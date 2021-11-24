@@ -2,31 +2,34 @@ body {
 	margin: 0;
     padding: 0;
 }
+
 header{
     background: rgb(255, 174, 201);
 	padding: 1rem;
 }
 
-header>.about {
-	float: right;
-	margin-right: 4rem;
-	font-size: 2rem;
-	font-family:'Youyuan', sans-serif;
-	font-weight:bold;
-}
-
 header>.home {
 	height: 4rem;
-	margin-left: 4rem;
+	margin-left: calc((100vw -300px) * 0.1);
 	font-size: 2rem;
 	font-family:'Youyuan', sans-serif;
 	font-weight:bold;
 	
 }
+
+header>.about {
+	float: right;
+	margin-right: calc((100vw -300px) * 0.1);
+	font-size: 2rem;
+	font-family:'Youyuan', sans-serif;
+	font-weight:bold;
+}
+
 .main{
 	min-height: calc(100vh - 7.161875rem);
     background: rgb(175, 239, 255);
 }
+
 footer{
 	padding: 0.8rem;
     background: rgb(189, 255, 198);
