@@ -78,3 +78,49 @@ header a:link {text-decoration:none;}
 	text-decoration: none;
 	font-size: 1.25rem;
 }
+
+.article-panel {
+	border: 1px;
+	border-color: rgb(175, 239, 255);
+	border-style: solid;
+	border-radius: 0.4rem;
+	max-width: 64rem;
+	margin: auto;
+}
+
+.article-panel-title {
+	background-color: rgb(175, 239, 255);
+	border-top-left-radius: 0.4rem;
+	border-top-right-radius: 0.4rem;
+	text-align: center;
+	font-size: 2rem;
+	font-weight:bold;
+}
+
+.article-panel-content {
+	padding: 1rem;
+}
+
+.article-panel-footer {
+	background-color: rgb(175, 239, 255);
+	border-bottom-left-radius: 0.4rem;
+	border-bottom-right-radius: 0.4rem;
+	text-align: center;
+	font-size: 2rem;
+	font-weight:bold;
+}
+
+.article-panel heimu {
+	color: #252525;
+    text-shadow: none;
+	background-color: #252525;
+}
+ 
+.article-panel heimu:hover, heimu:active {
+	color: white;
+}
+
+.article-panel .bg-grey {
+	background-color: gainsboro;
+	border-radius: 0.2rem;
+}

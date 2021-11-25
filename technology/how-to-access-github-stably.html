@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nyakohub-如何稳定访问github</title>
+    <meta name="keywords" content="github,访问">
+    <meta name="description" content="如何稳定访问github">
+    <link rel="shortcut icon" href="/favicon.png" />
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <header>
+        <span class="home"><a href="/">首页</a></span>
+        <span class="about"><a href="about.html">关于</a></span>
+    </header>
+    <div class="main">
+        <div class="article-panel">
+            <div class="article-panel-title">
+                如何稳定访问github
+            </div>
+            <div class="article-panel-content">
+                <p>经常访问github的小伙伴经常会遇到网站无法访问的情况，而且是一会能访问，一会又不能访问，即使现在能访问，刷新页面就可能无法访问了。</p>
+                <p>为了解决这种情况，本人也尝试了许多方法，最终也找到了几种解决方案。</p>
+
+                <h2><del>1.修改DNS</del></h1> 
+                <p>这也是目前网络上流传的最广的方案，具体做法是修改本地的hosts中几个有关几个github资源的域名的对于ip地址。</p>
+                <p><a href="https://github.com/521xueweihan/GitHub520" target="_blank">GitHub520</a>已经列举了所有的域名和对应的ip地址，可以直接拿来使用，每天都会自动更新。</p>
+                <p>如果嫌每天手动设置很麻烦，还可以下载<a href="https://github.com/oldj/SwitchHosts" target="_blank">SwitchHosts</a>，每天自动更新GitHub520中的内容。</p>
+                <p>遗憾的是，这种方式似乎只能起到安慰作用，在访问github的过程中仍然会遇到无法访问的情况。</p>
+
+                <h2>2.Steam++</h2>
+                <p>Steam++看名字也知道是加速steam社区使用的，但是这个工具很不专一，除了steam，还能加速<heimu title="你知道的太多了">代理</heimu>github，甚至还能访问到pixiv。</p>
+                <p>官方网站：<a href="https://steampp.net/" target="_blank">https://steampp.net/</a></p>
+                <p>Gitee：<a href="https://gitee.com/rmbgame/SteamTools" target="_blank">https://gitee.com/rmbgame/SteamTools</a></p>
+                <p>github：<a href="https://github.com/SteamTools-Team/SteamTools" target="_blank">https://github.com/SteamTools-Team/SteamTools</a></p>
+                <p>Windows10及以上用户还能直接从微软商店搜索Steam++下载。</p>
+                <h3>说下使用体验：</h3>
+                <ul>
+                    <li>功能很多，瑞士军刀型软件；但也正是因为功能太多，显得软件很繁杂。</li>
+                    <li>在使用的过程中稳定性还可以，基本上能稳定访问到github，但是也有几次无法正常访问，总是还是比修改dns稳定。</li>
+                </ul>
+
+                <h2>3.开发者边车（推荐）</h2>
+                <p>专门给开发者使用加速代理软件，可以加速github、Stack Overflow及npm。</p>
+                <p>Gitee：<a href="https://gitee.com/docmirror/dev-sidecar" target="_blank">https://gitee.com/docmirror/dev-sidecar</a></p>
+                <p>github：<a href="https://github.com/docmirror/dev-sidecar" target="_blank">https://github.com/docmirror/dev-sidecar</a></p>
+                <h3>使用体验：</h3>
+                <ul>
+                    <li>使用electron制作，界面很漂亮，能加速的东西也很多。</li>
+                    <li>在windows平台下使用如果在开着软件时关机，会在下一次开机时无法上网，这时只有打开软件才能上网，所以最好设置开机自启动。</li>
+                    <li>第一次使用需要设置根证书。</li>
+                    <li>开着软件时无法访问微软商店</li>
+                </ul>
+                <h2>4.FastGithub（Windows下超推荐）</h2>
+                <p>这是我目前在使用的访问方案。因为我认为它是一款简洁且专一的软件。</p>
+                <a href="https://github.com/dotnetcore/FastGithub" target="_blank">https://github.com/dotnetcore/FastGithub</a>
+                <p>解压文件后可以在当前文件夹使用<span class="bg-grey">fastgithub.exe start（powershell下使用./fastgithub.exe start）</span>命令以windows服务安装并启动。</p>
+                <p>这样每天就能在没有察觉的情况下稳定访问github了，简直不要太爽。</p>
+            </div>
+            <div class="article-panel-footer">
+                CC-BY-4.0
+            </div>
+        </div>
+    </div>
+    <footer>Copyright © 2021 Nyakohub, All rights reserved.</footer>
+    <script src="/main.js"></script>
+</body>
+</html>
