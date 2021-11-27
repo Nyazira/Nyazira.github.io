@@ -127,9 +127,9 @@ header a:link {text-decoration:none;}
 
 .article-panel .code {
 	overflow: auto;
-	background-color: gainsboro;
+	background-color: rgb(246, 246, 246);
 	border-radius: 0.2rem;
-	padding: 1rem;
+	padding: 0.5rem;
 }
 
 .article-panel img {
