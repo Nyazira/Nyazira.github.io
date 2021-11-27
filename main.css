@@ -135,3 +135,10 @@ header a:link {text-decoration:none;}
 .article-panel img {
 	max-width: 100%;
 }
+
+.article-panel a {
+	display: inline-block;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
