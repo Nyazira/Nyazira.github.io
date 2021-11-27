@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nyakohub-如何使用Anime4K提升动漫画质</title>
+    <meta name="keywords" content="Anime4K,动漫,提升画质">
+    <meta name="description" content="如何使用Anime4K提升动漫画质">
+    <link rel="shortcut icon" href="/favicon.png" />
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <header>
+        <span class="home"><a href="/">首页</a></span>
+        <span class="about"><a href="about.html">关于</a></span>
+    </header>
+    <div class="main">
+        <div class="article-panel">
+            <div class="article-panel-title">
+                如何使用Anime4K提升动漫画质
+            </div>
+            <div class="article-panel-content">
+                <p>不知喜欢动漫的小伙伴们是否对当前的动漫画质感到满意。</p>
+                <p>目前的动漫还是以1080P的画质为主，当然前不久新出的《小林家的龙女仆S》居然有4K的资源<heimu>不知道有没有想看却看不到的小伙伴</heimu>，但是我的1080P屏幕并看不出什么不同。</p>
+                <p>时间再往前推，很多动漫资源只能找到720P甚至480P的分辨率了，对于这种画质的动漫我自然是不太满意的。</p>
+                <p>今天要介绍的主角<b>Anime4K</b>就是一个专门为了提升动漫画质的项目。</p>
+                <p>项目地址：<a href="https://github.com/bloc97/Anime4K" target="_blank">https://github.com/bloc97/Anime4K</a></p>
+                <p>使用方法：<a href="https://github.com/bloc97/Anime4K/blob/master/GLSL_Instructions.md" target="_blank">https://github.com/bloc97/Anime4K/blob/master/GLSL_Instructions.md</a></p>
+                <p>接下来我来介绍Windows下如何安装以及如何使用。</p>
+                <h2>安装：</h2>
+                <p>需要下载mpv播放器和Anime4K着色语言</p>
+                <ul>
+                    <li>mpv下载地址：<a href="https://sourceforge.net/projects/mpv-player-windows/files/64bit/" target="_blank">https://sourceforge.net/projects/mpv-player-windows/files/64bit/</a></li>
+                    <li>Anime4K着色语言下载地址：<a href="https://github.com/bloc97/Anime4K/releases" target="_blank">https://github.com/bloc97/Anime4K/releases</a></li>
+                </ul>
+                <p>mpv下载最新的即可，本次教程下载的是mpv-x86_64-20211114-git-c478a1e.7z，解压后可以直接使用。</p>
+                <p>Anime4K也是下载最新的，本次教程下载的是Anime4K_v4.0.zip，解压后可以看到很多glsl后缀的文件。</p>
+                <p>然后打开文件资源管理器<heimu>win+E</heimu>，在地址栏输入“%AppData%”，回车。</p>
+                <p>在当前目录找到mpv文件夹，没有就新建一个。</p>
+                <p>在mpv文件夹下新建一个叫“input.conf”的文件，用编辑器打开，添加以下语句。</p>
+                <div class="code">
+                    CTRL+1 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Restore_CNN_M.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode A (Fast)"
+                    CTRL+2 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Restore_CNN_Soft_M.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode B (Fast)"
+                    CTRL+3 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Upscale_Denoise_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode C (Fast)"
+                    CTRL+4 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Restore_CNN_M.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K_Restore_CNN_S.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode A+A (Fast)"
+                    CTRL+5 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Restore_CNN_Soft_M.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Restore_CNN_Soft_S.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode B+B (Fast)"
+                    CTRL+6 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Upscale_Denoise_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Restore_CNN_S.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode C+A (Fast)"
+                    
+                    CTRL+0 no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"
+                </div>
+                <p>官方教程中其实是有两种代码的，如果对自己的显卡比较自信，可以用另一种针对高端显卡的那个版本。</p>
+                <p>还是在mpv文件夹下，创建一个叫“shaders”的文件夹，并把下载的glsl文件全扔进去。</p>
+                <p>这样就算安装完成了。</p>
+                <h2>使用：</h2>
+                <p>打开mpv.exe，随便拖进一个动漫，然后按Ctrl+1，这时画质就明显得到了提升。如果按Ctrl+4，会得到更加清晰<heimu>锐利</heimu>的画质。</p>
+                <h3>原版：</h3>
+                <img src="/img/2021-11-27_08-11-41.png" alt="">
+                <h3>Ctrl+1：</h3>
+                <img src="/img/2021-11-27_08-12-11.png" alt="">
+                <h3>Ctrl+4：</h3>
+                <img src="/img/2021-11-27_08-12-30.png" alt="">
+                <p>额...怎么说了，突然少了那种朦胧美，折腾了半天反而觉得有些得不偿失。</p>
+                <p>除了Ctrl+1和Ctrl+4，其实还有其他几种模式，可以从Ctrl1按到Ctrl6。</p>
+                <p>Ctrl1-Ctrl3是一级模式，Ctrl4到Ctrl6是由前3个一级模式中的两个叠加而成的二级模式。</p>
+                <p>据我观察，Ctrl+4是对画质改变最明显的一个模式。</p>
+                <p>如果想恢复原版画质，按Ctrl+0即可。</p>
+                <h2>总结</h2>
+                <p>总的来说，这是一个比较有趣的项目，恰当的使用可以得到良好的使用体验。但是如果能找到原生高画质动漫，我当然还是选择原版。</p>
+                <p>（￣︶￣）↗</p>
+            </div>
+            <div class="article-panel-footer">
+                CC-BY-4.0
+            </div>
+        </div>
+    </div>
+    <footer>Copyright © 2021 Nyakohub, All rights reserved.</footer>
+    <script src="/main.js"></script>
+</body>
+</html>

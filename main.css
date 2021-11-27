@@ -124,3 +124,14 @@ header a:link {text-decoration:none;}
 	background-color: gainsboro;
 	border-radius: 0.2rem;
 }
+
+.article-panel .code {
+	overflow: auto;
+	background-color: gainsboro;
+	border-radius: 0.2rem;
+	padding: 1rem;
+}
+
+.article-panel img {
+	max-width: 100%;
+}
