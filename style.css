@@ -127,7 +127,7 @@ footer{
 	background-color: gainsboro;
 }
 
-.article-panel .radius {
+.article-panel .fillet {
 	border-radius: 0.2em;
 }
 
