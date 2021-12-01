@@ -7,14 +7,17 @@
     <meta name="keywords" content="Anime4K,动漫,提升画质">
     <meta name="description" content="如何使用Anime4K提升动漫画质">
     <link rel="shortcut icon" href="/favicon.png" />
-    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </head>
 <body>
     <header>
         <span class="home"><a href="/">首页</a></span>
         <span class="about"><a href="/about.html">关于</a></span>
     </header>
-    <div class="main">
+    <main>
         <div class="article-panel">
             <div class="article-panel-title">
                 如何使用Anime4K提升动漫画质
@@ -35,24 +38,24 @@
                 </ul>
                 <p>mpv下载最新的即可，本次教程下载的是mpv-x86_64-20211114-git-c478a1e.7z，解压后可以直接使用。</p>
                 <p>Anime4K也是下载最新的，本次教程下载的是Anime4K_v4.0.zip，解压后可以看到很多glsl后缀的文件。</p>
-                <p>然后打开文件资源管理器<heimu>win+E</heimu>，在地址栏输入“%AppData%”，回车。</p>
+                <p>然后<kbd>win + E</kbd>打开文件资源管理器，在地址栏输入“%AppData%”，回车。</p>
                 <p>在当前目录找到mpv文件夹，没有就新建一个。</p>
                 <p>在mpv文件夹下新建一个叫“input.conf”的文件，用编辑器打开，添加以下语句。</p>
-                <div class="code">
-                    CTRL+1 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Restore_CNN_M.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode A (Fast)"
-                    CTRL+2 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Restore_CNN_Soft_M.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode B (Fast)"
-                    CTRL+3 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Upscale_Denoise_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode C (Fast)"
-                    CTRL+4 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Restore_CNN_M.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K_Restore_CNN_S.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode A+A (Fast)"
-                    CTRL+5 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Restore_CNN_Soft_M.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Restore_CNN_Soft_S.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode B+B (Fast)"
-                    CTRL+6 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Upscale_Denoise_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Restore_CNN_S.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode C+A (Fast)"
-                    
-                    CTRL+0 no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"
-                </div>
+                <pre><code>
+                CTRL+1 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Restore_CNN_M.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode A (Fast)"
+                CTRL+2 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Restore_CNN_Soft_M.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode B (Fast)"
+                CTRL+3 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Upscale_Denoise_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode C (Fast)"
+                CTRL+4 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Restore_CNN_M.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K_Restore_CNN_S.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode A+A (Fast)"
+                CTRL+5 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Restore_CNN_Soft_M.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Restore_CNN_Soft_S.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode B+B (Fast)"
+                CTRL+6 no-osd change-list glsl-shaders set "~~/shaders/Anime4K_Clamp_Highlights.glsl;~~/shaders/Anime4K_Upscale_Denoise_CNN_x2_M.glsl;~~/shaders/Anime4K_AutoDownscalePre_x2.glsl;~~/shaders/Anime4K_AutoDownscalePre_x4.glsl;~~/shaders/Anime4K_Restore_CNN_S.glsl;~~/shaders/Anime4K_Upscale_CNN_x2_S.glsl"; show-text "Anime4K: Mode C+A (Fast)"
+                
+                CTRL+0 no-osd change-list glsl-shaders clr ""; show-text "GLSL shaders cleared"
+                </code></pre>
                 <p>官方教程中其实是有两种代码的，如果对自己的显卡比较自信，可以用另一种针对高端显卡的那个版本。</p>
                 <p>还是在mpv文件夹下，创建一个叫“shaders”的文件夹，并把下载的glsl文件全扔进去。</p>
                 <p>这样就算安装完成了。</p>
                 <h2>使用：</h2>
-                <p>打开mpv.exe，随便拖进一个动漫，然后按Ctrl+1，这时画质就明显得到了提升。如果按Ctrl+4，会得到更加<ruby><rb><del>清晰</del></rb><rt><heimu>锐利</heimu></rt></ruby>的画质。</p>
+                <p>打开mpv.exe，随便拖进一个动漫，然后按<kbd>ctrl + 1</kbd>，这时画质就明显得到了提升。如果按<kbd>ctrl + 4</kbd>，会得到更加<ruby><rb><del>清晰</del></rb><rt><heimu>锐利</heimu></rt></ruby>的画质。</p>
                 <h3>原版：</h3>
                 <img src="/img/2021-11-27_08-11-41.jpg" alt="">
                 <h3>Ctrl+1：</h3>
@@ -60,10 +63,10 @@
                 <h3>Ctrl+4：</h3>
                 <img src="/img/2021-11-27_08-12-30.jpg" alt="">
                 <p>额...怎么说了，突然少了那种朦胧美，折腾了半天反而觉得有些得不偿失。</p>
-                <p>除了Ctrl+1和Ctrl+4，其实还有其他几种模式，可以从Ctrl1按到Ctrl6。</p>
-                <p>Ctrl1-Ctrl3是一级模式，Ctrl4到Ctrl6是由前3个一级模式中的两个叠加而成的二级模式。</p>
-                <p>据我观察，Ctrl+4是对画质改变最明显的一个模式。</p>
-                <p>如果想恢复原版画质，按Ctrl+0即可。</p>
+                <p>除了<kbd>ctrl + 1</kbd>和<kbd>ctrl + 4</kbd>，其实还有其他几种模式，可以从<kbd>ctrl + 1</kbd>按到<kbd>ctrl + 6</kbd>。</p>
+                <p><kbd>ctrl + 1</kbd>-<kbd>ctrl + 3</kbd>是一级模式，<kbd>ctrl + 4</kbd>到<kbd>ctrl + 6</kbd>是由前3个一级模式中的两个叠加而成的二级模式。</p>
+                <p>据我观察，<kbd>ctrl + 4</kbd>是对画质改变最明显的一个模式。</p>
+                <p>如果想恢复原版画质，按<kbd>ctrl + 0</kbd>即可。</p>
                 <h2>总结</h2>
                 <p>总的来说，这是一个比较有趣的项目，恰当的使用可以得到良好的使用体验。但是如果能找到原生高画质动漫，我当然还是选择原版。</p>
                 <p>（￣︶￣）↗</p>
@@ -72,8 +75,9 @@
                 CC-BY-4.0
             </div>
         </div>
-    </div>
+    </main>
     <footer>Copyright © 2021 Nyakohub, All rights reserved.</footer>
     <script src="/main.js"></script>
+    
 </body>
 </html>
