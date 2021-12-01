@@ -125,7 +125,10 @@ footer{
 
 .article-panel .bg-grey {
 	background-color: gainsboro;
-	border-radius: 0.2rem;
+}
+
+.article-panel .radius {
+	border-radius: 0.2em;
 }
 
 .article-panel .code {
