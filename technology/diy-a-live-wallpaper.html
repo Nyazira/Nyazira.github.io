@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自己动手写一个动态壁纸</title>
+    <meta name="keywords" content="动态壁纸，DIY">
+    <meta name="description" content="自己动手写一个动态壁纸">
+    <link rel="shortcut icon" href="/favicon.png" />
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.2.0/styles/default.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <header>
+        <span class="home"><a href="/">首页</a></span>
+        <span class="about"><a href="/about.html">关于</a></span>
+    </header>
+    <main>
+        <div class="article-panel">
+            <div class="article-panel-title">
+                自己动手写一个动态壁纸
+            </div>
+            <div class="article-panel-content">
+                <p>最近在B站看到一个UP主自己动手写了一个动态壁纸，于是我也花了一点时间交了一份作业。</p>
+                <p>话不多说，先看效果图。</p>
+                <div style="text-align:center"><img src="/img/动态壁纸.gif" alt=""></div>
+                <h2>准备工作：</h2>
+                <ul>
+                    <li>安装Visual Studio 2022及.NET桌面开发工作负载，其实我们只需要用C#来写一个控制台程序就行了，所以理论上不需要安装VS，只需要一个.NET SDK就行了</li>
+                    <li>安装ffmpeg工具，推荐去<a href="https://www.gyan.dev/ffmpeg/builds/" target="_blank">https://www.gyan.dev/ffmpeg/builds/</a>下载release builds， version: 5.0，ffmpeg-release-full.7z</li>
+                </ul>
+                <h2>工作原理：</h2>
+                <p>其实我对Windows窗口是不太懂的，只是大致了解了一下。</p>
+                <p>说是原本Windows桌面只有一个图层，如果我们利用视频播放器播放一个动态视频，如果放在原有图层下面，那势必看不见这个视频，但如果放在原有图层上方，那又会把原有图层遮住，那么桌面图标什么的也都看不见了。</p>
+                <p>然后有一个老哥发现了一段神奇的咒语，当他念起这段咒语时，原有的图层会一分为三，原有的图标会到达最上层，原有的静态壁纸会到达中间层，这时候我们只需要把视频放到最下层，再让中间图层透明，就能达到动态壁纸的效果了。</p>
+                <h2>实现代码：</h2>
+                <pre><code>
+using System.Diagnostics;
+
+public class Program
+{
+    public static Process ffplay = new Process();
+    public static void Main()
+    {
+        //找到最初始的图层
+        IntPtr hProgman = DllImports.FindWindow("Progman", "Program Manager");
+        //对其念咒语，让它裂开
+        DllImports.SendMessageTimeout(hProgman, 0x52c, 0, 0, 0, 100, out _);
+
+        IntPtr workerW = IntPtr.Zero;
+        do
+        {
+            //找到中间图层并让它变透明
+            workerW = DllImports.FindWindowEx(IntPtr.Zero, workerW, "workerW", null);
+            if (DllImports.GetParent(workerW) == hProgman)
+            {
+                DllImports.ShowWindow(workerW, 0);
+            }
+        } while (workerW != IntPtr.Zero);
+        
+        //播放一个动态视频
+        ffplay.StartInfo.FileName = @"ffplay.exe";
+        ffplay.StartInfo.Arguments = $@"D:/Resources/Video/reverse.mp4 -noborder -x 1920 -y 1080 -loop 0";
+        ffplay.StartInfo.CreateNoWindow = true;
+        ffplay.StartInfo.UseShellExecute = false;
+        ffplay.Start();
+        while (ffplay.MainWindowHandle == IntPtr.Zero && ffplay.HasExited == false)
+        {
+            Thread.Sleep(100);
+            ffplay.Refresh();
+        }
+        //将这个动态视频设为最下面那个图层的子图层
+        DllImports.SetParent(ffplay.MainWindowHandle, hProgman); 
+    }
+}
+                </code></pre>
+                <h3>有这么几个点需要注意一下：</h3>
+                <p>ffplay.exe是ffmpeg工具中的一个命令，在bin文件夹中，需要将这个文件夹添加到环境变量中，代码中使用的是@"ffplay.exe"，如果没有添加到环境变量中，需要将这个命令的路径补充完整。</p>
+                <p>"D:/Resources/Video/reverse.mp4 -noborder -x 1920 -y 1080 -loop 0"是命令行后面跟的参数，D:/Resources/Video/reverse.mp4是视频文件路径，-noborder表示无边框，-x表示横轴分辨率，-y表示纵轴分辨率，-loop 0表示循环播放。</p>
+                <p>代码中有一个叫DllImports的类，这是我们自己写的一个类，它的作用是导入DLL以便调用系统API。原代码是用C++编写的，但是网上有很多人用C#也完成了相似的效果，相当于是用C#调用了C++的API吧。</p>
+                <p>代码如下，可以新创建一个cs文件，也可以就放在原文件中：</p>
+                <pre><code>
+using System.Runtime.InteropServices;
+using System.Text;
+
+public static class DllImports
+{
+    [DllImport("user32.dll")]
+    public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string className, string windowTitle);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr SendMessageTimeout(IntPtr hWnd, int uMsg, int wParam, int lParam, int fuFlags, int uTimeout, out StringBuilder lpdwResult);
+
+    [DllImport("user32.dll")]
+    public static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr GetParent(IntPtr hWnd);
+}
+                </code></pre>
+                <p>这样我们就大功告成了。</p>
+                <p>什么，你说你不知道在哪下载动态壁纸？</p>
+                <p>开头那张圆神图我是在<a href="https://livewallp.com/" target="_blank">https://livewallp.com/</a>下载的，可以找找。</p>
+                <p>其实到这里应该就已经结束了，但是可能还有一些问题，就是每次打开的时候，都会弹出一个控制台出来。解决这个问题的方法是将文件的输出类型设置为Windows应用程序，具体方法是双击项目，如果不知道怎么做就打开项目文件夹，打开xx.csproj文件，找到OutputType元素，修改为<OutputType>WinExe</OutputType>这种样式。这样就不会弹出控制台了。</p>
+                <p>然后生成解决方案就大功告成了。最后在生成目标文件的文件夹中找到VideoWallpaper.dll、VideoWallpaper.exe和VideoWallpaper.runtimeconfig.json这三个文件就可以了，VideoWallpaper是我的项目名称，具体名称视项目名称而定。</p>
+                <p>将exe文件生成快捷方式，<kbd>Win+R</kbd>运行shell:startup，将快捷方式拖入其中，这样每次开机就会自启动了。</p>
+                <p>还有一点就是这个方案是看系统的，我使用的是Windows11，如果是太旧的系统可能没有办法用这种方式实现。</p>
+                <h2>改进一下：</h2>
+                <p>其实我们还可以写一个配置文件，这样我们想换壁纸的时候就不需要每次都改代码然后重新生成一个文件了。</p>
+                <p>我使用的方法是每次打开程序后读取一个json文件，文件中包含3个属性"path"，"x"，"y"，path就是视频文件的路径，x和y可以更改视频分辨率。</p>
+                <p>新增的Config.cs：</p>
+                <pre><code>
+using Newtonsoft.Json;
+
+class Config
+{
+    public string? path { get; set; }
+    public int? x { get; set; }
+    public int? y { get; set; }
+}
+
+class ConfigReader
+{
+    public static Config GetConfig()
+    {
+        Config config = JsonConvert.DeserializeObject<Config>(System.IO.File.ReadAllText("./config.json"));
+        return config;
+    }
+}
+                </code></pre>
+                <p>这里我们需要使用到Newtonsoft.Json，可以用Nuget下载并添加进来。</p>
+                <p>之后我们还需要修改主程序中的一些代码，在Main()方法最开始添加如下代码：</p>
+                <pre><code>
+Config config = ConfigReader.GetConfig();
+if (config == null)
+{
+    return;
+}
+if (config.path == null)
+{
+    return;
+}
+
+if(config.x == null)
+{
+    config.x = 1920;
+}
+if (config.y == null)
+{
+    config.y = 1080;
+}
+                </code></pre>
+                <p>参数代码也要改一下：</p>
+                <pre><code>
+                    //ffplay.StartInfo.Arguments = $@"D:/Resources/Video/reverse.mp4 -noborder -x 1920 -y 1080 -loop 0";
+                    ffplay.StartInfo.Arguments = $@"{config.path}  -noborder -x {config.x} -y {config.y}  -loop 0";
+                </code></pre>
+                我们还需要在生成exe文件的文件夹中新建一个config.json文件，内容如下：
+                <pre><code>
+{
+    "path":"D:/Resources/Video/reverse.mp4",
+    "x":"1920",
+    "y":"1080"
+}
+                </code></pre>
+                <p>之后我们想换其他视频只需要修改path中的值了。需要注意的是使用Newtonsoft.Json后重新生成的文件中会多出一个Newtonsoft.Json.dll，移动文件时不要把这个文件给忘了。</p>
+                <p>最终的源代码贴在这里：<a href="https://github.com/nyakohub/nyakohub.github.io/releases/download/Source/VideoWallpaper-Source.zip" target="_blank">https://github.com/nyakohub/nyakohub.github.io/releases/download/Source/VideoWallpaper-Source.zip</a></p>
+                <p>有没有觉得省下了19块钱呢？</p>
+                <p>反正我是觉得没有的哈哈哈，感觉电脑变卡了，内存占用一直维持在100M左右。</p>
+                <h3>是不是一定要用到ffplay？</h3>
+                <p>这个是不一定的，我看有人用mpv也能达到效果，关键是让视频播放。参考的C#项目中很多都用到Winform中的视频组件，但不知道为什么我始终找不到这个组件，所以才选择使用ffplay。</p>              
+                <h2>参考项目</h2>
+                [1]<a href="https://www.bilibili.com/video/BV1HZ4y1978a" target="_blank">偶尔有点小迷糊-『教程』动态壁纸 原理揭秘</a><br>
+                [2]<a href="https://www.dearxuan.top/2021/07/27/Wallpaper%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8CC-%E5%AE%9E%E7%8E%B0/" target="_blank">DearXuan-Wallpaper的原理和C#实现(含源文件)</a><br>
+                [3]<a href="https://github.com/Mzying2001/VideoWallpaper" target="_blank">Mzying2001/VideoWallpaper</a><br>
+                [4]<a href="https://github.com/gogoyubari/FFplayWinform" target="_blank">gogoyubari/FFplayWinform</a>
+            </div>
+            <div class="article-panel-footer">
+                CC-BY-SA-4.0
+            </div>
+        </div>
+    </main>
+    <footer>Copyright © 2021 Nyakohub, All rights reserved.</footer>
+    <script src="/main.js"></script>
+</body>
+</html>
